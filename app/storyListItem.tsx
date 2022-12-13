@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import hackerNewsStoryImagePlaceholder from '../public/hackernews.png';
+import { Story } from './page'
 
 async function getAuthor(storyBy: string) {
   const res = await fetch(`https://hacker-news.firebaseio.com/v0/user/${storyBy}.json`);
@@ -7,7 +8,7 @@ async function getAuthor(storyBy: string) {
   return data;
 }
 
-export default async function StoryListItem({story}: {story: {}}) {
+export default async function StoryListItem({story}: {story: Story}) {
   // const story = await getStory(storyId)
   const author = await getAuthor(story.by)
 

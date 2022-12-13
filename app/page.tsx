@@ -9,6 +9,18 @@ async function fetchStoriesId() {
   return data;
 }
 
+export type Story = {
+  by: string;
+  descendants: string;
+  id: number;
+  kids: number[];
+  score: number;
+  time: number;
+  title: string;
+  type: string;
+  url: string;
+}
+
 async function fetchStoriesData(storyIds: number[]) {
   const requests = storyIds.map((storyId) => fetch(`https://hacker-news.firebaseio.com/v0/item/${storyId}.json`)); 
   const responses = await Promise.all(requests); 
@@ -17,9 +29,9 @@ async function fetchStoriesData(storyIds: number[]) {
 }
 
 export default async function HomePage() {
-  const storiesId = await fetchStoriesId();
-  const storyIdsRandomzied = getRandomizedArraySlice(storiesId, 10);
-  const storiesDataRandomized = await fetchStoriesData(storyIdsRandomzied);
+  const storiesId: number[] = await fetchStoriesId();
+  const storyIdsRandomzied: number[] = getRandomizedArraySlice(storiesId, 10);
+  const storiesDataRandomized: Story[] = await fetchStoriesData(storyIdsRandomzied);
 
   // sort by score in ascending order:
   storiesDataRandomized.sort((a, b) => (a.score > b.score) ? 1 : -1)

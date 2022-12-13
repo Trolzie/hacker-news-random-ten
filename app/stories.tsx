@@ -1,8 +1,7 @@
 import StoryListItem from './storyListItem';
+import { Story } from './page'
 
-// todo: create a Story type
-
-export default function StoriesPage({storiesData} : {storiesData: {}[]}) {
+export default function StoriesPage({storiesData} : {storiesData: Story[]}) {
   return(
     <div>
       <h1>Stories</h1>
