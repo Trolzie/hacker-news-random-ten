@@ -8,6 +8,7 @@ export default function StoriesPage({storiesData} : {storiesData: Story[]}) {
       <p>hi there!!</p>
       <ul>
         {storiesData.map((story: {}, i)=><li key={i}>
+          {/* @ts-expect-error Server Component */}
           <StoryListItem story={story} />
         </li>)}
       </ul>
