@@ -1,43 +1,67 @@
-import Image from 'next/image'
-import styles from './page.module.scss'
+import Image from 'next/image';
+import styles from './page.module.scss';
+// import Stories from './stories';
 
-export default function Home() {
+async function fetchStoriesId() {
+  const res = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json');
+  const data = await res.json();
+  return data;
+}
+
+// async function getStory(storyId: string) {
+//   const res = await fetch(`https://hacker-news.firebaseio.com/v0/item/${storyId}.json`);
+//   const data = await res.json();
+//   return data;
+// }
+
+export function getTenRandomStoryIds(array: string[]) {
+
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+const randomizeArrayWithLength = (arr: string[], n: number) => {
+  var result = new Array(n),
+      len = arr.length,
+      taken = new Array(len);
+  if (n > len)
+      throw new RangeError('randomizeArrayWithLength: more elements taken than available');
+  while (n--) {
+      var x = Math.floor(Math.random() * len);
+      result[n] = arr[x in taken ? taken[x] : x];
+      taken[x] = --len in taken ? taken[len] : len;
+  }
+  return result;
+}
+
+async function fetchStoriesData(storyIds: string[]) {
+  const requests = storyIds.map((storyId) => fetch(`https://hacker-news.firebaseio.com/v0/item/${storyId}.json`)); 
+  const responses = await Promise.all(requests); 
+  const promises = responses.map((response) => response.json());
+  return await Promise.all(promises);
+}
+
+export default async function HomePage() {
+  const storiesId = await fetchStoriesId();
+  const storyIdsRandomzied = randomizeArrayWithLength(storiesId, 10);
+  const storiesDataRandomized = await fetchStoriesData(storyIdsRandomzied)
+
+  storiesDataRandomized.sort((a, b) => (a.score > b.score) ? 1 : -1)
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js 13!</a>
+          Welcome to Random Hacker News!
         </h1>
+        data here:
+          {(await storiesDataRandomized).map((item, i) => <p key={i}>{item['score']}</p>)}
+        datastop
+        {/* <Stories storyIds={tenRandomStoryIds}/> */}
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://beta.nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js 13</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Explore the Next.js 13 playground.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates/next.js/app-directory?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>Deploy your Next.js site to a public URL with Vercel.</p>
-          </a>
-        </div>
       </main>
 
       <footer className={styles.footer}>
