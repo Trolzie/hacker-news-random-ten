@@ -1,17 +1,23 @@
-import StoryListItem from './storyListItem';
-import { Story } from './page'
+import StoryListItem from "./storyListItem";
+import { Story } from "./page";
 
-export default function StoriesPage({storiesData} : {storiesData: Story[]}) {
-  return(
+export default function StoriesPage({
+  storiesData,
+}: {
+  storiesData: Story[];
+}) {
+  return (
     <div>
       <h1>Stories</h1>
       <p>hi there!!</p>
       <ul>
-        {storiesData.map((story: {}, i)=><li key={i}>
-          {/* @ts-expect-error Server Component */}
-          <StoryListItem story={story} />
-        </li>)}
+        {storiesData.map((story: {}, i) => (
+          <li key={i}>
+            {/* @ts-expect-error Server Component */}
+            <StoryListItem story={story} />
+          </li>
+        ))}
       </ul>
     </div>
-  )
+  );
 }
