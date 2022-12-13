@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import styles from './page.module.scss';
-// import Stories from './stories';
+import Stories from './stories';
+import { getRandomizedArraySlice } from './helpers'
 
 async function fetchStoriesId() {
   const res = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json');
@@ -8,27 +9,7 @@ async function fetchStoriesId() {
   return data;
 }
 
-// async function getStory(storyId: string) {
-//   const res = await fetch(`https://hacker-news.firebaseio.com/v0/item/${storyId}.json`);
-//   const data = await res.json();
-//   return data;
-// }
-
-const randomizeArrayWithLength = (arr: string[], n: number) => {
-  var result = new Array(n),
-      len = arr.length,
-      taken = new Array(len);
-  if (n > len)
-      throw new RangeError('randomizeArrayWithLength: more elements taken than available');
-  while (n--) {
-      var x = Math.floor(Math.random() * len);
-      result[n] = arr[x in taken ? taken[x] : x];
-      taken[x] = --len in taken ? taken[len] : len;
-  }
-  return result;
-}
-
-async function fetchStoriesData(storyIds: string[]) {
+async function fetchStoriesData(storyIds: number[]) {
   const requests = storyIds.map((storyId) => fetch(`https://hacker-news.firebaseio.com/v0/item/${storyId}.json`)); 
   const responses = await Promise.all(requests); 
   const promises = responses.map((response) => response.json());
@@ -37,9 +18,10 @@ async function fetchStoriesData(storyIds: string[]) {
 
 export default async function HomePage() {
   const storiesId = await fetchStoriesId();
-  const storyIdsRandomzied = randomizeArrayWithLength(storiesId, 10);
-  const storiesDataRandomized = await fetchStoriesData(storyIdsRandomzied)
+  const storyIdsRandomzied = getRandomizedArraySlice(storiesId, 10);
+  const storiesDataRandomized = await fetchStoriesData(storyIdsRandomzied);
 
+  // sort by score in ascending order:
   storiesDataRandomized.sort((a, b) => (a.score > b.score) ? 1 : -1)
 
   return (
@@ -48,11 +30,7 @@ export default async function HomePage() {
         <h1 className={styles.title}>
           Welcome to Random Hacker News!
         </h1>
-        data here:
-          {(await storiesDataRandomized).map((item, i) => <p key={i}>{item['score']}</p>)}
-        datastop
-        {/* <Stories storyIds={tenRandomStoryIds}/> */}
-
+        <Stories storiesData={await storiesDataRandomized}/>
       </main>
 
       <footer className={styles.footer}>
