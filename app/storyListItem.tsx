@@ -43,7 +43,7 @@ export default async function StoryListItem({
             target='_blank'
             rel='noreferrer'
           >
-            Read Story on Hacker News...
+            See More...
           </a>
         </span>
       </div>
