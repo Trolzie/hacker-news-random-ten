@@ -30,7 +30,7 @@ export default async function StoryListItem({
               className={styles.authorKarma}
               title='author karma score'
             >
-              / &#9775; {author.karma}
+              &#9775; {author.karma}
             </span>
           </div>
           <Date dateString={story.time} />

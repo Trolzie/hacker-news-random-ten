@@ -8,6 +8,7 @@ $hacker-news-teal: #0b8484;
   padding: 0 2rem;
   background-color: $hacker-news-dark;
   border-top: 10px solid #fff;
+  border-bottom: 10px solid #fff;
 
   .pageLogo {
     display: flex;
@@ -58,6 +59,7 @@ $hacker-news-teal: #0b8484;
       color: lighten($hacker-news-dark, 10%);
       text-underline-offset: 5px;
       font-weight: 600;
+      cursor: pointer;
 
       &:hover::after {
         content: " 👀 ";
@@ -97,23 +99,25 @@ $hacker-news-teal: #0b8484;
           display: flex;
           flex-direction: row;
           justify-content: space-between;
+          align-items: center;
 
           .storyAuthor {
-            color: lighten($hacker-news-teal, 60%);
+            color: darken($hacker-news-orange, 25%);
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
           }
 
           .authorKarma {
-            color: $hacker-news-card;
+            color: lighten($hacker-news-orange, 25%);
             font-weight: 300;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
           }
 
           .storyDate {
             color: $hacker-news-card;
             font-weight: 300;
             font-size: 0.8rem;
+            font-style: italic;
           }
         }
 
@@ -166,6 +170,8 @@ $hacker-news-teal: #0b8484;
         display: flex;
         align-items: center;
         justify-content: center;
+        color: lighten($hacker-news-orange, 30%);
+        font-weight: 100;
         cursor: pointer;
 
         &:hover {
@@ -190,6 +196,8 @@ $hacker-news-teal: #0b8484;
   align-items: center;
   font-size: 0.8rem;
   color: $hacker-news-light;
+  max-width: 1164px;
+  margin: auto;
 }
 
 .title {
@@ -203,13 +211,6 @@ $hacker-news-teal: #0b8484;
 
 .title {
   text-align: center;
-}
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
 }
 
 @media (max-width: 900px) {
@@ -250,7 +251,14 @@ $hacker-news-teal: #0b8484;
 
               .articleHeader {
                 flex-direction: column;
+                align-items: flex-start;
+
+                .storyDate {
+                  margin-top: 0.25rem;
+                  font-size: 0.7rem;
+                }
               }
+
               .storyTitle {
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -270,22 +278,5 @@ $hacker-news-teal: #0b8484;
         }
       }
     }
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .title {
-    color: $hacker-news-light;
-  }
-
-  .card,
-  .footer {
-    // border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(1);
   }
 }
