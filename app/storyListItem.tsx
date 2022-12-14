@@ -35,7 +35,7 @@ export default async function StoryListItem({
           </div>
           <Date dateString={story.time} />
         </header>
-        <h2 className={styles.storyTitle}>{story.title}</h2>
+        <h3 className={styles.storyTitle}>{story.title}</h3>
         <span>
           <a
             className={styles.readMoreLink}

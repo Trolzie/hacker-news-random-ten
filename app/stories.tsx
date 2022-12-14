@@ -9,11 +9,11 @@ export default function StoriesPage({
 }) {
   return (
     <>
-      <h3 className={styles.heroTeaser}>
+      <h2 className={styles.heroTeaser}>
         The perfect cocktail for your daily breaks. Hacker news
         sprinkled with a little <pre>Math.random()</pre>. Everthing a
         grown developer needs!
-      </h3>
+      </h2>
       <ul>
         {storiesData.map((story: Story, i) => (
           <li key={i}>
