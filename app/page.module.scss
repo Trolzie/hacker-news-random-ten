@@ -1,4 +1,5 @@
-$page-blue: #0070f3;
+$hacker-news-orange: #ff6600;
+$hacker-news-upvote: #ff4000;
 
 .container {
   padding: 0 2rem;
@@ -12,8 +13,74 @@ $page-blue: #0070f3;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
   margin: auto;
+
+  article {
+    position: relative;
+    background: $hacker-news-orange;
+    margin-top: 2rem;
+    padding-left: 15rem;
+    height: 156px;
+
+    &:hover {
+      transform: translateX(4px);
+      transition: all 0.1s linear;
+    }
+
+    .contentWrapper {
+      padding: 1rem;
+    }
+
+    .storyImageWrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      width: 15rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      // border: 1px solid blue;
+
+      img {
+        height: 100%;
+        width: auto;
+      }
+
+      .imageOverlay {
+        position: absolute;
+        top: -50px;
+        right: -266px;
+        z-index: 1;
+        width: 300px;
+        height: 300px;
+        background-color: $hacker-news-orange;
+        transform: rotate(30deg);
+      }
+    }
+
+    .storyScore {
+      position: absolute;
+      bottom: 0;
+      left: 150px;
+      z-index: 3;
+      width: 0;
+      height: 0;
+      border-right: 50px solid transparent;
+      border-left: 50px solid transparent;
+      border-bottom: 86.60254px solid $hacker-news-upvote; // (border-left-width 50px + border-right-width 50px) * 0.8660254 = 86.60254px  border-bottom-width = EquilateralTriangle height
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      span {
+        position: absolute;
+        top: 48px;
+      }
+    }
+  }
 }
 
 .footer {

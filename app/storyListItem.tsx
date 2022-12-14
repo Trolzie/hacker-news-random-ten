@@ -1,3 +1,4 @@
+import styles from "./page.module.scss";
 import Image from "next/image";
 import hackerNewsStoryImagePlaceholder from "../public/hackernews.png";
 import { Story } from "./page";
@@ -19,20 +20,36 @@ export default async function StoryListItem({
   const author = await getAuthor(story.by);
 
   return (
-    <div>
-      <h2>score: {story.score}</h2>
-      title: {story.title}
-      URL: {story.url}
-      time: {story.time}
-      score: {story.score}
-      authorid: {author.id}
-      karma: {author.karma}
-      <Image
-        src={hackerNewsStoryImagePlaceholder}
-        alt='Hacker news placeholder image'
-        width={200}
-        height={50}
-      />
-    </div>
+    <article>
+      <div className={styles.contentWrapper}>
+        <header>
+          <span>
+            {author.id} / &#9775;
+            {author.karma}
+          </span>
+        </header>
+        <h2>{story.title}</h2>
+        <footer>time: {story.time}</footer>
+        <span>
+          <a href={story.url} target='_blank' rel='noreferrer'>
+            Read Story on Hacker News
+          </a>
+        </span>
+      </div>
+      <div>
+        <div className={styles.storyImageWrapper}>
+          <Image
+            src={hackerNewsStoryImagePlaceholder}
+            alt='Hacker news placeholder image'
+            width={305}
+            height={165}
+          />
+          <div className={styles.imageOverlay}></div>
+        </div>
+      </div>
+      <div className={styles.storyScore}>
+        <span>{story.score}</span>
+      </div>
+    </article>
   );
 }
