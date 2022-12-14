@@ -2,6 +2,7 @@ import styles from "./page.module.scss";
 import Image from "next/image";
 import hackerNewsStoryImagePlaceholder from "../public/hackernews.png";
 import { Story } from "./page";
+import Date from "./date";
 
 async function getAuthor(storyBy: string) {
   const res = await fetch(
@@ -22,17 +23,27 @@ export default async function StoryListItem({
   return (
     <article>
       <div className={styles.contentWrapper}>
-        <header>
-          <span>
-            {author.id} / &#9775;
-            {author.karma}
-          </span>
+        <header className={styles.articleHeader}>
+          <div>
+            <span className={styles.storyAuthor}>{author.id}</span>{" "}
+            <span
+              className={styles.authorKarma}
+              title='author karma score'
+            >
+              / &#9775; {author.karma}
+            </span>
+          </div>
+          <Date dateString={story.time} />
         </header>
-        <h2>{story.title}</h2>
-        <footer>time: {story.time}</footer>
+        <h2 className={styles.storyTitle}>{story.title}</h2>
         <span>
-          <a href={story.url} target='_blank' rel='noreferrer'>
-            Read Story on Hacker News
+          <a
+            className={styles.readMoreLink}
+            href={story.url}
+            target='_blank'
+            rel='noreferrer'
+          >
+            Read Story on Hacker News...
           </a>
         </span>
       </div>

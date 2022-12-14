@@ -1,83 +1,169 @@
-$hacker-news-orange: #ff6600;
-$hacker-news-upvote: #ff4000;
+$hacker-news-light: #fef4ea;
+$hacker-news-card: #ffdbc1;
+$hacker-news-dark: #213343;
+$hacker-news-orange: #ff5c35;
+$hacker-news-teal: #0b8484;
 
 .container {
   padding: 0 2rem;
-}
+  background-color: $hacker-news-dark;
+  border-top: 10px solid #fff;
 
-.main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
+  .pageLogo {
+    display: flex;
+    justify-content: center;
 
-  article {
-    position: relative;
-    background: $hacker-news-orange;
-    margin-top: 2rem;
-    padding-left: 15rem;
-    height: 156px;
-
-    &:hover {
-      transform: translateX(4px);
-      transition: all 0.1s linear;
-    }
-
-    .contentWrapper {
-      padding: 1rem;
-    }
-
-    .storyImageWrapper {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-      width: 15rem;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .logoWrapper {
+      width: 30px;
+      height: 30px;
+      border-radius: 3px;
+      margin-top: -6px;
       overflow: hidden;
-      // border: 1px solid blue;
+    }
+  }
 
-      img {
-        height: 100%;
-        width: auto;
-      }
+  .main {
+    min-height: 100vh;
+    padding: 2rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    color: $hacker-news-light;
 
-      .imageOverlay {
-        position: absolute;
-        top: -50px;
-        right: -266px;
-        z-index: 1;
-        width: 300px;
-        height: 300px;
-        background-color: $hacker-news-orange;
-        transform: rotate(30deg);
-      }
+    .title {
+      margin-bottom: 1rem;
     }
 
-    .storyScore {
-      position: absolute;
-      bottom: 0;
-      left: 150px;
-      z-index: 3;
-      width: 0;
-      height: 0;
-      border-right: 50px solid transparent;
-      border-left: 50px solid transparent;
-      border-bottom: 86.60254px solid $hacker-news-upvote; // (border-left-width 50px + border-right-width 50px) * 0.8660254 = 86.60254px  border-bottom-width = EquilateralTriangle height
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    ul > li {
+      list-style-type: none;
+    }
 
-      span {
+    .storyCloser {
+      margin-top: 4rem;
+      text-align: center;
+      font-size: 0.8;
+      opacity: 0.6;
+    }
+
+    .readMoreLink {
+      color: lighten($hacker-news-dark, 10%);
+      text-underline-offset: 5px;
+      font-weight: 600;
+    }
+
+    .heroTeaser {
+      font-style: italic;
+      font-weight: 100;
+      line-height: 1.5;
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    article {
+      position: relative;
+      background: $hacker-news-orange;
+      margin-top: 2rem;
+      padding-left: 15rem;
+      height: 156px;
+      border-radius: 4px;
+      overflow: hidden;
+
+      &:hover {
+        transform: translateX(4px);
+        transition: all 0.1s linear;
+      }
+
+      .contentWrapper {
+        padding: 1rem;
+
+        .articleHeader {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+          .storyAuthor {
+            color: lighten($hacker-news-teal, 60%);
+            font-weight: 600;
+            font-size: 0.8rem;
+          }
+
+          .authorKarma {
+            color: $hacker-news-card;
+            font-weight: 300;
+            font-size: 0.8rem;
+          }
+
+          .storyDate {
+            color: $hacker-news-card;
+            font-weight: 300;
+            font-size: 0.8rem;
+          }
+        }
+
+        .storyTitle {
+          margin: 0.75rem 0;
+        }
+      }
+
+      .storyImageWrapper {
         position: absolute;
-        top: 48px;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: 15rem;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        // border: 1px solid blue;
+
+        img {
+          height: 100%;
+          width: auto;
+        }
+
+        .imageOverlay {
+          position: absolute;
+          top: -50px;
+          right: -266px;
+          z-index: 1;
+          width: 300px;
+          height: 300px;
+          background-color: $hacker-news-orange;
+          transform: rotate(30deg);
+        }
+      }
+
+      .storyScore {
+        position: absolute;
+        bottom: 0;
+        left: 150px;
+        z-index: 3;
+        width: 0;
+        height: 0;
+        border-right: 50px solid transparent;
+        border-left: 50px solid transparent;
+        border-bottom: 86.60254px solid
+          darken($hacker-news-orange, 5%); // (border-left-width 50px + border-right-width 50px) * 0.8660254 = 86.60254px  border-bottom-width = EquilateralTriangle height
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &:hover {
+          border-bottom-color: darken($hacker-news-orange, 10%);
+        }
+
+        span {
+          position: absolute;
+          top: 48px;
+        }
       }
     }
   }
@@ -87,9 +173,11 @@ $hacker-news-upvote: #ff4000;
   display: flex;
   flex: 1;
   padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
+  border-top: 1px solid #747474;
   justify-content: center;
   align-items: center;
+  font-size: 0.8rem;
+  color: $hacker-news-light;
 }
 
 .title {
@@ -114,16 +202,12 @@ $hacker-news-upvote: #ff4000;
 
 @media (prefers-color-scheme: dark) {
   .title {
-    background: linear-gradient(180deg, #ffffff 0%, #aaaaaa 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
+    color: $hacker-news-light;
   }
 
   .card,
   .footer {
-    border-color: #222;
+    // border-color: #222;
   }
   .code {
     background: #111;

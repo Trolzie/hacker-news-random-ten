@@ -1,5 +1,7 @@
 import styles from "./page.module.scss";
 import Stories from "./stories";
+import Image from "next/image";
+import hackerNewsLogo from "../public/hacker-news-logo.png";
 import { getRandomizedArraySlice } from "./helpers";
 
 async function fetchStoriesId() {
@@ -48,6 +50,18 @@ export default async function HomePage() {
 
   return (
     <div className={styles.container}>
+      <header>
+        <div className={styles.pageLogo}>
+          <div className={styles.logoWrapper}>
+            <Image
+              src={hackerNewsLogo}
+              alt='Hacker news logo'
+              width={30}
+              height={30}
+            />
+          </div>
+        </div>
+      </header>
       <main className={styles.main}>
         <h1 className={styles.title}>Random Hacker News</h1>
         <Stories storiesData={await storiesDataRandomized} />
